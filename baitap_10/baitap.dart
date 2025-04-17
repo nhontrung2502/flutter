@@ -19,7 +19,7 @@ void main(List<String> args) {
     print("6. Assign Teacher to Classroom");
     print("7. Exit");
     print("Choose option:");
-    option = int.parse(stdin.readLineSync().toString());
+    option = isValidNumber();
 
     switch (option) {
       case 1:
@@ -36,9 +36,9 @@ void main(List<String> args) {
         break;
       case 5:
         print("Enter class ID:");
-        var classId = int.parse(stdin.readLineSync().toString());
+        var classId = isValidNumber();
         print("Enter student ID:");
-        var studentId = int.parse(stdin.readLineSync().toString());
+        var studentId = isValidNumber();
 
         for (var classroom in classroomsList) {
           if (classroom.id == classId) {
@@ -50,9 +50,9 @@ void main(List<String> args) {
         break;
       case 6:
         print("Enter class ID:");
-        var classId = int.parse(stdin.readLineSync().toString());
+        var classId = isValidNumber();
         print("Enter teacher ID:");
-        var teacherId = int.parse(stdin.readLineSync().toString());
+        var teacherId = isValidNumber();
 
         for (var classroom in classroomsList) {
           if (classroom.id == classId) {
@@ -196,5 +196,27 @@ void showTeachersListInfo(teachersList) {
 void showAverageScore(studentsList) {
   for (var student in studentsList) {
     print("ID: ${student.id} - Name: ${student.name} - Grade: ${student.grade} - Score: ${student.score}");
+  }
+}
+
+int isValidNumber() {
+  while (true) {
+    try {
+      var input = stdin.readLineSync();
+      if (input == null) {
+        print("Input cannot be null.");
+        continue;
+      }
+
+      int value = int.parse(input.toString());
+      if (value <= 0) {
+        print("Value cannot be negative.");
+        continue;
+      }
+
+      return value;
+    } catch (e) {
+      print("Invalid number. Please enter a valid number.");
+    }
   }
 }
